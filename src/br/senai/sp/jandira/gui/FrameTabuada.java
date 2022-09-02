@@ -2,6 +2,7 @@ package br.senai.sp.jandira.gui;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,8 +13,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import br.senai.sp.jandira.model.ApenasNumero;
 import br.senai.sp.jandira.model.Tabuada;
 
 public class FrameTabuada {
@@ -82,16 +86,19 @@ public class FrameTabuada {
 		textFieldMultiplicando.setFont(componentesDaConta);
 		textFieldMultiplicando.setHorizontalAlignment(JTextField.RIGHT);
 		textFieldMultiplicando.setBounds(270, 113, 200, 30);
+		textFieldMultiplicando.setDocument(new ApenasNumero());
 
 		JTextField textFieldMinMulti = new JTextField();
 		textFieldMinMulti.setFont(componentesDaConta);
 		textFieldMinMulti.setHorizontalAlignment(JTextField.RIGHT);
 		textFieldMinMulti.setBounds(270, 163, 200, 30);
+		textFieldMinMulti.setDocument(new ApenasNumero());
 
 		JTextField textFieldMaxMulti = new JTextField();
 		textFieldMaxMulti.setFont(componentesDaConta);
 		textFieldMaxMulti.setHorizontalAlignment(JTextField.RIGHT);
 		textFieldMaxMulti.setBounds(270, 213, 200, 30);
+		textFieldMaxMulti.setDocument(new ApenasNumero());
 
 		JButton buttonCalcular = new JButton();
 		buttonCalcular.setText("Calcular");
@@ -112,9 +119,11 @@ public class FrameTabuada {
 		labelResultado.setFont(buttonEResultado);
 		labelResultado.setBounds(15, 295, 150, 50);
 
+		JScrollPane scrollResultado = new JScrollPane();
+		scrollResultado.setBackground(new Color(255, 247, 158));
+		scrollResultado.setBounds(15, 340, 454, 205);
 		JList<String> listResultado = new JList<String>();
-		listResultado.setBackground(new Color(255, 247, 158));
-		listResultado.setBounds(15, 340, 454, 205);
+		listResultado.setMinimumSize(new Dimension(100, 100));
 
 		// Adicionando os componentes ao container e o configurando
 		painel.add(labelAprendendo);
@@ -131,6 +140,7 @@ public class FrameTabuada {
 		painel.add(buttonLimpar);
 		painel.add(labelResultado);
 		painel.add(listResultado);
+		painel.add(scrollResultado);
 
 		tela.setLocationRelativeTo(null);
 		tela.setResizable(false);
@@ -143,6 +153,11 @@ public class FrameTabuada {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
+				if (Integer.parseInt(textFieldMultiplicando.getText()) <= 9999
+						&& Integer.parseInt(textFieldMaxMulti.getText()) <= 9999
+						&& Integer.parseInt(textFieldMinMulti.getText()) <= Integer
+								.parseInt(textFieldMaxMulti.getText())) {
+
 					Tabuada tabuada = new Tabuada();
 					tabuada.numeroMultiplicado = Integer.parseInt(textFieldMultiplicando.getText());
 					tabuada.minMultiplicador = Integer.parseInt(textFieldMinMulti.getText());
@@ -153,7 +168,14 @@ public class FrameTabuada {
 						listModel.addElement(percorrer);
 					}
 					listResultado.setModel(listModel);
-			} 
+					scrollResultado.getViewport().add(listResultado);
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Números muito altos em alguma das caixas de texto!", "Erro",
+							JOptionPane.ERROR_MESSAGE, null);
+				}
+
+			}
 		});
 
 		buttonLimpar.addActionListener(new ActionListener() {
@@ -165,7 +187,9 @@ public class FrameTabuada {
 				listResultado.setModel(listModel);
 
 			}
+
 		});
+
 	}
 
 }
