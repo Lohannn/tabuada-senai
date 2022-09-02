@@ -15,7 +15,7 @@ public class ApenasNumero extends PlainDocument {
 		// Aceita virgula e ponto nos números
 		for (int i = 0; i < str.length(); i++)
 			// Se não for número, ponto ou vírgula retorna zero
-			if (!Character.isDigit(str.charAt(i)) && str.charAt(i) != ',' && str.charAt(i) != '.')
+			if (!Character.isDigit(str.charAt(i)))
 				return;
 
 		super.insertString(offs, str, a);
