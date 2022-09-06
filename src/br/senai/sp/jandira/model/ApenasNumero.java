@@ -12,7 +12,6 @@ public class ApenasNumero extends PlainDocument {
 		// normalmente apenas uma letra é inserida por vez,
 		// mas fazendo assim também previne caso o usuário
 		// cole algum texto
-		// Aceita virgula e ponto nos números
 		for (int i = 0; i < str.length(); i++)
 			// Se não for número, ponto ou vírgula retorna zero
 			if (!Character.isDigit(str.charAt(i)))

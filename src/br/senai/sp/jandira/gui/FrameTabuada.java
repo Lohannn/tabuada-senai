@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -34,8 +35,7 @@ public class FrameTabuada {
 		Font tituloDoPrograma = new Font("", Font.BOLD, 30);
 		Font componentesDaConta = new Font("", Font.PLAIN, 20);
 		Font buttonEResultado = new Font("", Font.BOLD, 15);
-		ImageIcon icone = new ImageIcon("src/br/senai/sp/jandira/images/icone.png");
-		tela.setIconImage(icone.getImage());
+		tela.setIconImage(new ImageIcon("src/images/icone.png").getImage());
 		tela.setTitle(titulo);
 		tela.setSize(largura, altura);
 		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,7 +47,8 @@ public class FrameTabuada {
 
 		// Criação dos componentes da tela
 
-		ImageIcon icon = new ImageIcon("src/br/senai/sp/jandira/images/aprendendo.png");
+		URL url = getClass().getResource("/images/aprendendo.png");
+		ImageIcon icon = new ImageIcon(url);
 		JLabel labelAprendendo = new JLabel(icon);
 		labelAprendendo.setBounds(-10, -5, 100, 100);
 
@@ -120,7 +121,6 @@ public class FrameTabuada {
 		labelResultado.setBounds(15, 295, 150, 50);
 
 		JScrollPane scrollResultado = new JScrollPane();
-		scrollResultado.setBackground(new Color(255, 247, 158));
 		scrollResultado.setBounds(15, 340, 454, 205);
 		JList<String> listResultado = new JList<String>();
 		listResultado.setMinimumSize(new Dimension(100, 100));
@@ -182,6 +182,10 @@ public class FrameTabuada {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				textFieldMultiplicando.setText("");
+				textFieldMinMulti.setText("");
+				textFieldMaxMulti.setText("");
 
 				DefaultListModel<String> listModel = new DefaultListModel<String>();
 				listResultado.setModel(listModel);
