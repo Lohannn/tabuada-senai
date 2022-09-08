@@ -119,6 +119,7 @@ public class FrameTabuada {
 		JScrollPane scrollResultado = new JScrollPane();
 		scrollResultado.setBounds(15, 340, 454, 205);
 		JList<String> listResultado = new JList<String>();
+		listResultado.setBackground(new Color(252, 233, 164));
 		listResultado.setMinimumSize(new Dimension(100, 100));
 
 		// Adicionando os componentes ao container e o configurando
