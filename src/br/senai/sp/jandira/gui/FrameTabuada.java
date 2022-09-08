@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-import br.senai.sp.jandira.model.ApenasNumero;
 import br.senai.sp.jandira.model.Tabuada;
 
 public class FrameTabuada {
@@ -87,19 +86,16 @@ public class FrameTabuada {
 		textFieldMultiplicando.setFont(componentesDaConta);
 		textFieldMultiplicando.setHorizontalAlignment(JTextField.RIGHT);
 		textFieldMultiplicando.setBounds(270, 113, 200, 30);
-		textFieldMultiplicando.setDocument(new ApenasNumero());
 
 		JTextField textFieldMinMulti = new JTextField();
 		textFieldMinMulti.setFont(componentesDaConta);
 		textFieldMinMulti.setHorizontalAlignment(JTextField.RIGHT);
 		textFieldMinMulti.setBounds(270, 163, 200, 30);
-		textFieldMinMulti.setDocument(new ApenasNumero());
 
 		JTextField textFieldMaxMulti = new JTextField();
 		textFieldMaxMulti.setFont(componentesDaConta);
 		textFieldMaxMulti.setHorizontalAlignment(JTextField.RIGHT);
 		textFieldMaxMulti.setBounds(270, 213, 200, 30);
-		textFieldMaxMulti.setDocument(new ApenasNumero());
 
 		JButton buttonCalcular = new JButton();
 		buttonCalcular.setText("Calcular");
@@ -153,26 +149,36 @@ public class FrameTabuada {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (Integer.parseInt(textFieldMultiplicando.getText()) <= 9999
-						&& Integer.parseInt(textFieldMaxMulti.getText()) <= 9999
-						&& Integer.parseInt(textFieldMinMulti.getText()) <= Integer
-								.parseInt(textFieldMaxMulti.getText())) {
+				try {
+					if (Integer.parseInt(textFieldMinMulti.getText()) <= Integer
+							.parseInt(textFieldMaxMulti.getText())) {
 
-					Tabuada tabuada = new Tabuada();
-					tabuada.numeroMultiplicado = Integer.parseInt(textFieldMultiplicando.getText());
-					tabuada.minMultiplicador = Integer.parseInt(textFieldMinMulti.getText());
-					tabuada.maxMultiplicador = Integer.parseInt(textFieldMaxMulti.getText());
+						Tabuada tabuada = new Tabuada();
+						tabuada.numeroMultiplicado = Integer.parseInt(textFieldMultiplicando.getText());
+						tabuada.minMultiplicador = Integer.parseInt(textFieldMinMulti.getText());
+						tabuada.maxMultiplicador = Integer.parseInt(textFieldMaxMulti.getText());
 
-					DefaultListModel<String> listModel = new DefaultListModel<String>();
-					for (String percorrer : tabuada.getResultados()) {
-						listModel.addElement(percorrer);
+						DefaultListModel<String> listModel = new DefaultListModel<String>();
+						for (String percorrer : tabuada.getResultados()) {
+							listModel.addElement(percorrer);
+						}
+						listResultado.setModel(listModel);
+						scrollResultado.getViewport().add(listResultado);
+
+					} else {
+						JOptionPane.showMessageDialog(null,
+								"O Mínimo Multiplicador é maior que o Máximo Multiplicador!", "Erro",
+								JOptionPane.ERROR_MESSAGE, null);
+						textFieldMultiplicando.setText("");
+						textFieldMinMulti.setText("");
+						textFieldMaxMulti.setText("");
 					}
-					listResultado.setModel(listModel);
-					scrollResultado.getViewport().add(listResultado);
-
-				} else {
-					JOptionPane.showMessageDialog(null, "Números muito altos em alguma das caixas de texto!", "Erro",
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Erro - Caractere inváido colocado", "Erro!",
 							JOptionPane.ERROR_MESSAGE, null);
+					textFieldMultiplicando.setText("");
+					textFieldMinMulti.setText("");
+					textFieldMaxMulti.setText("");
 				}
 
 			}
@@ -182,7 +188,7 @@ public class FrameTabuada {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				textFieldMultiplicando.setText("");
 				textFieldMinMulti.setText("");
 				textFieldMaxMulti.setText("");
