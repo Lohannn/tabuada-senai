@@ -34,7 +34,8 @@ public class FrameTabuada {
 		Font tituloDoPrograma = new Font("", Font.BOLD, 30);
 		Font componentesDaConta = new Font("", Font.PLAIN, 20);
 		Font buttonEResultado = new Font("", Font.BOLD, 15);
-		tela.setIconImage(new ImageIcon("src/images/icone.png").getImage());
+		ImageIcon icon = new ImageIcon(this.getClass().getResource("/images/icone.png"));  
+		tela.setIconImage(icon.getImage());
 		tela.setTitle(titulo);
 		tela.setSize(largura, altura);
 		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,8 +48,8 @@ public class FrameTabuada {
 		// Criação dos componentes da tela
 
 		URL url = getClass().getResource("/images/aprendendo.png");
-		ImageIcon icon = new ImageIcon(url);
-		JLabel labelAprendendo = new JLabel(icon);
+		ImageIcon icon1 = new ImageIcon(url);
+		JLabel labelAprendendo = new JLabel(icon1);
 		labelAprendendo.setBounds(-10, -5, 100, 100);
 
 		JLabel labelTituloTabuada = new JLabel();
@@ -116,11 +117,12 @@ public class FrameTabuada {
 		labelResultado.setFont(buttonEResultado);
 		labelResultado.setBounds(15, 295, 150, 50);
 
-		JScrollPane scrollResultado = new JScrollPane();
-		scrollResultado.setBounds(15, 340, 454, 205);
+		
 		JList<String> listResultado = new JList<String>();
 		listResultado.setBackground(new Color(252, 233, 164));
 		listResultado.setMinimumSize(new Dimension(100, 100));
+		JScrollPane scrollResultado = new JScrollPane();
+		scrollResultado.setBounds(15, 340, 454, 205);
 
 		// Adicionando os componentes ao container e o configurando
 		painel.add(labelAprendendo);
@@ -167,7 +169,7 @@ public class FrameTabuada {
 						scrollResultado.getViewport().add(listResultado);
 
 					} else {
-						JOptionPane.showMessageDialog(null,
+						JOptionPane.showMessageDialog(tela,
 								"O Mínimo Multiplicador é maior que o Máximo Multiplicador!", "Erro",
 								JOptionPane.ERROR_MESSAGE, null);
 						textFieldMultiplicando.setText("");
@@ -175,7 +177,7 @@ public class FrameTabuada {
 						textFieldMaxMulti.setText("");
 					}
 				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(null, "Erro - Caractere inváido colocado", "Erro!",
+					JOptionPane.showMessageDialog(tela, "Erro - Caractere inváido colocado", "Erro!",
 							JOptionPane.ERROR_MESSAGE, null);
 					textFieldMultiplicando.setText("");
 					textFieldMinMulti.setText("");
